@@ -1,10 +1,34 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 
-function Authenticate() {
+function Authenticate(token) {
+  const [error, setError] = useState(null);
+  const [authorized, setAuthorized] = useState(null);
+
+  async function handleAuth(token) {
+    try {
+      const data = await axios.get(
+        'https://fsa-jwt-practice.herokuapp.com/authenticate',
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setAuthorized(data.statusText);
+    } catch (err) {
+      setError(err.message);
+    }
+    console.log('Authenticating Token');
+  }
   return (
     <>
       <h2>Authenticate</h2>
-      
+      {authorized && <p>{authorized}</p>}
+      {error?.message && <p style={{ color: 'red' }}>Error Signing Up</p>}
+      <button onClick={handleAuth}>Authenticate Token</button>
     </>
   );
 }
