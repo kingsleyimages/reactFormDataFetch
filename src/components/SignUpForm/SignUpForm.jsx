@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function SignUpForm() {
   // create state variables for input fields with initial state of empty strings
@@ -8,10 +9,18 @@ function SignUpForm() {
   console.log(username, password);
 
   // create a function to handle the form submission
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
     try {
-      fetch('https://fsa-jwt-practice.herokuapp.com/signup');
+      // use axios for post request to server passign the object variable with username and password
+      const data = await axios.post(
+        'https://fsa-jwt-practice.herokuapp.com/signup',
+        {
+          username,
+          password,
+        }
+      );
+      console.log(data.data);
     } catch (err) {
       console.error(err.message);
     }
@@ -19,13 +28,14 @@ function SignUpForm() {
     //   response = response.json;
     //   console.log(formData);
     //   setFormData({ username: '', password: '', error: 'null' });
-  };
+  }
 
   return (
     <>
       <h2>Signup</h2>
       {/* // output server error message */}
       {error?.message && <p style={{ color: 'red' }}>Error Signing Up</p>}
+      {/* render form */}
       <form onSubmit={handleSubmit}>
         <label>
           <p>Username:</p>
