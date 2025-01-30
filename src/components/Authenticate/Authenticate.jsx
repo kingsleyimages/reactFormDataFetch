@@ -3,33 +3,55 @@ import React, { useState } from 'react';
 
 function Authenticate({ token }) {
   const [error, setError] = useState(null);
+  // use authorized as boolean to check if the user is authorized or not
   const [authorized, setAuthorized] = useState(null);
-
+  let username = '';
   async function handleAuth() {
     try {
       const data = await axios.get(
         'https://fsa-jwt-practice.herokuapp.com/authenticate',
         {
           headers: {
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      console.log(data);
-      setAuthorized(data.data.message);
+      console.log(data.data.data.username);
+      // of the success message is true set the authorized state variable to true else set it to false
+      // if success is null no message displays
+      username = data.data.data.username;
+      console.log(username);
+      if (data.data.success) {
+        setAuthorized(true);
+      } else {
+        setAuthorized(false);
+      }
     } catch (err) {
       setError(err.message);
-      console.log('Authentication failed', err);
     }
-    console.log('Authentication Successful', authorized);
   }
   return (
     <>
       <h2>Authenticate</h2>
-      {authorized && <p>{authorized}</p>}
+      {/* output message after authentication */}
+      {authorized ? (
+        <p style={{ color: 'green' }}>
+          Welcome {username}! You are authorized to use the application.
+        </p>
+      ) : (
+        authorized === false && (
+          <p style={{ color: 'red' }}>
+            You are not authorized to use the application.
+          </p>
+        )
+      )}
 
-      {error?.message && <p style={{ color: 'red' }}>Error Signing Up</p>}
+      {error && (
+        <p style={{ color: 'red' }}>
+          Error Authenticating your credentials. {error}
+        </p>
+      )}
+
       <button onClick={handleAuth}>Authenticate Token</button>
     </>
   );

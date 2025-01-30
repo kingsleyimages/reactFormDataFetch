@@ -7,8 +7,10 @@ function App() {
   const [token, setToken] = useState('null');
   return (
     <>
-      <SignUpForm setToken={setToken} token={token} />
-      <Authenticate setToken={setToken} token={token} />
+      {/* pass set token function to the signup form */}
+      <SignUpForm setToken={setToken} />
+      {/* pass token to the authenticate component */}
+      <Authenticate token={token} />
     </>
   );
 }

@@ -22,15 +22,16 @@ function SignUpForm({ setToken }) {
           password,
         }
       );
-      // store token in state variable from App.jsx
 
-      console.log(data.data);
+      // console.log(data.data);
+      // if the server response is successful, set the success state variable to true and reset the input fields
       if (data.data.success) {
         setSuccess(true);
         setUsername('');
         setPassword('');
       }
-      console.log(data.data.success);
+      // console.log(data.data.success);
+      // store token in state variable from App.jsx
       setToken(data.data.token);
     } catch (err) {
       console.log(err);
@@ -42,9 +43,11 @@ function SignUpForm({ setToken }) {
     <>
       <h2>Signup</h2>
       {/* // output server error message */}
-      {error?.message && <p style={{ color: 'red' }}>Error Signing Up</p>}
-      {/* output successful login message */}
-      {success && <p>Signup Successful</p>}
+      {error?.message && (
+        <p style={{ color: 'red' }}>Error Signing Up {error}</p>
+      )}
+      {/* output successful login message -> this is a short circuit of an if statement with only one desired output.  if success is true output the p*/}
+      {success && <p style={{ color: 'green' }}>Signup Successful</p>}
       {/* render form */}
       <form onSubmit={handleSubmit}>
         <label>
