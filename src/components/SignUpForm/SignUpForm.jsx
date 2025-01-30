@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Authenticate from '../Authenticate/Authenticate';
+import styles from './SignUpForm.module.css';
 
-function SignUpForm(setToken) {
+function SignUpForm({ setToken }) {
   // create state variables for input fields with initial state of empty strings
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -22,14 +22,15 @@ function SignUpForm(setToken) {
         }
       );
       // store token in state variable from App.jsx
-      setToken = data.data.token;
+      setToken(data.data.token);
       console.log(data.data);
     } catch (err) {
+      console.log(err);
       setError(err.message);
     }
-    setUsername('');
-    setPassword('');
-    setError(null);
+    // setUsername('');
+    // setPassword('');
+    // setError(null);
   }
 
   return (

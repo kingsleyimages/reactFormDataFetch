@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 
-function Authenticate(token) {
+function Authenticate({ token }) {
   const [error, setError] = useState(null);
   const [authorized, setAuthorized] = useState(null);
 
-  async function handleAuth(token) {
+  async function handleAuth() {
     try {
       const data = await axios.get(
         'https://fsa-jwt-practice.herokuapp.com/authenticate',
@@ -16,12 +16,13 @@ function Authenticate(token) {
           },
         }
       );
-
-      setAuthorized(data.statusText);
+      console.log(data);
+      setAuthorized(data.data.message);
     } catch (err) {
       setError(err.message);
+      console.log('Authentication failed', err);
     }
-    console.log('Authenticating Token');
+    console.log('Authentication Successful', authorized);
   }
   return (
     <>
