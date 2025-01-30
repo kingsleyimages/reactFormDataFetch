@@ -30,6 +30,7 @@ function SignUpForm({ setToken }) {
         setUsername('');
         setPassword('');
       }
+      console.log(data.data.success);
       setToken(data.data.token);
     } catch (err) {
       console.log(err);
@@ -42,7 +43,7 @@ function SignUpForm({ setToken }) {
       <h2>Signup</h2>
       {/* // output server error message */}
       {error?.message && <p style={{ color: 'red' }}>Error Signing Up</p>}
-      {success && <p>Welcome to the App</p>}
+      {success && <p>Signup Successful</p>}
       {/* render form */}
       <form onSubmit={handleSubmit}>
         <label>
