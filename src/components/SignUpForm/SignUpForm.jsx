@@ -7,7 +7,7 @@ function SignUpForm({ setToken }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState('false');
+  const [success, setSuccess] = useState(false);
   console.log(username, password);
 
   // create a function to handle the form submission
@@ -43,6 +43,7 @@ function SignUpForm({ setToken }) {
       <h2>Signup</h2>
       {/* // output server error message */}
       {error?.message && <p style={{ color: 'red' }}>Error Signing Up</p>}
+      {/* output successful login message */}
       {success && <p>Signup Successful</p>}
       {/* render form */}
       <form onSubmit={handleSubmit}>

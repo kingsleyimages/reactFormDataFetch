@@ -27,11 +27,7 @@ function Authenticate({ token }) {
   return (
     <>
       <h2>Authenticate</h2>
-      {authorized ? (
-        <p>{authorized}</p>
-      ) : (
-        <p>We were unable to log you in with those credentials.</p>
-      )}
+      {authorized && <p>{authorized}</p>}
 
       {error?.message && <p style={{ color: 'red' }}>Error Signing Up</p>}
       <button onClick={handleAuth}>Authenticate Token</button>
