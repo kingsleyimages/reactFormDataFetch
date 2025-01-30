@@ -1,7 +1,5 @@
 # React + Vite
 
-Url for the deployment at netlify: <a target="_blank" href="https://stunning-starship-951ae3.netlify.app/">stunning-starship-951ae3.netlify.app/)</a>
-
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
