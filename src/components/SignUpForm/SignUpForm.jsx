@@ -7,6 +7,7 @@ function SignUpForm({ setToken }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState('false');
   console.log(username, password);
 
   // create a function to handle the form submission
@@ -22,15 +23,18 @@ function SignUpForm({ setToken }) {
         }
       );
       // store token in state variable from App.jsx
-      setToken(data.data.token);
+
       console.log(data.data);
+      if (data.data.success) {
+        setSuccess(true);
+        setUsername('');
+        setPassword('');
+      }
+      setToken(data.data.token);
     } catch (err) {
       console.log(err);
       setError(err.message);
     }
-    // setUsername('');
-    // setPassword('');
-    // setError(null);
   }
 
   return (
@@ -38,6 +42,7 @@ function SignUpForm({ setToken }) {
       <h2>Signup</h2>
       {/* // output server error message */}
       {error?.message && <p style={{ color: 'red' }}>Error Signing Up</p>}
+      {success && <p>Welcome to the App</p>}
       {/* render form */}
       <form onSubmit={handleSubmit}>
         <label>
