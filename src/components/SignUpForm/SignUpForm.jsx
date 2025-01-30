@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from './SignUpForm.module.css';
+import './SignUpForm.css';
 
 function SignUpForm({ setToken }) {
   // create state variables for input fields with initial state of empty strings

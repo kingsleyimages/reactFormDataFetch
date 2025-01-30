@@ -5,7 +5,8 @@ function Authenticate({ token }) {
   const [error, setError] = useState(null);
   // use authorized as boolean to check if the user is authorized or not
   const [authorized, setAuthorized] = useState(null);
-  let username = '';
+  const [username, setUsername] = useState('');
+
   async function handleAuth() {
     try {
       const data = await axios.get(
@@ -17,14 +18,18 @@ function Authenticate({ token }) {
         }
       );
       console.log(data.data.data.username);
-      // of the success message is true set the authorized state variable to true else set it to false
+      // if the success message is true set the authorized state variable to true else set it to false
       // if success is null no message displays
-      username = data.data.data.username;
-      console.log(username);
+      setUsername(data.data.data.username);
+
       if (data.data.success) {
         setAuthorized(true);
       } else {
         setAuthorized(false);
+      }
+      if (data.data.message == 'jwt malformed') {
+        // force a manual error
+        throw new Error('Invalid token');
       }
     } catch (err) {
       setError(err.message);
